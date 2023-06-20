@@ -11,7 +11,7 @@ const createStation = async (dataStation) => {
         formData.append("coordinatesLng", dataStation.coordinatesLng);
         formData.append("address", dataStation.address);
         formData.append("schedule", dataStation.schedule);
-        const result = await API.post("stations", formData);
+        const result = await API().post("stations", formData);
         dispatch({
             type: "CREATE_STATION",
             payload: result.data
@@ -24,7 +24,7 @@ const createStation = async (dataStation) => {
 const getAllStations = async () => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.get("stations");
+        const result = await API().get("stations");
         dispatch({
             type: "GET_STATIONS",
             payload: result.data
@@ -39,7 +39,7 @@ const getAllStations = async () => {
 const getAllStationsAdmin = async () => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.get("stations/stations-admin/");
+        const result = await API().get("stations/stations-admin/");
         dispatch({
             type: "GET_STATIONS_ADMIN",
             payload: result.data
@@ -52,7 +52,7 @@ const getAllStationsAdmin = async () => {
 const getStationById = async (stationId) => {
     try {
         // dispatch({type: "LOADING"});
-        const result = await API.get(`stations/${stationId}`);       
+        const result = await API().get(`stations/${stationId}`);       
         dispatch({
             type: "SELECT_STATION",
             payload: result.data
@@ -67,7 +67,7 @@ const updateStation = async (stationId, stationToUpdate) => {
         dispatch({type: "LOADING"});
         const formData = new FormData();
         formData.append("schedule", stationToUpdate.schedule);
-        const result = await API.put(`stations/${stationId}`, formData);
+        const result = await API().put(`stations/${stationId}`, formData);
         dispatch({
             type: "UPDATE_STATION",
             payload: result.data
@@ -80,7 +80,7 @@ const updateStation = async (stationId, stationToUpdate) => {
 const deleteStation = async (stationId) => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.delete(`stations/${stationId}`);
+        const result = await API().delete(`stations/${stationId}`);
         dispatch({
             type: "DELETE_STATION",
             payload: result.data

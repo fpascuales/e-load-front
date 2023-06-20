@@ -11,7 +11,7 @@ const createPayment = async (dataPayment, userId) => {
         formData.append("number", dataPayment.number);
         formData.append("valMonth", dataPayment.valMonth);
         formData.append("valYear",  dataPayment.valYear);
-        const result = await API.post("payments", formData);
+        const result = await API().post("payments", formData);
         dispatch({
             type: "CREATE_PAYMENT",
             payload: result.data
@@ -25,7 +25,7 @@ const createPayment = async (dataPayment, userId) => {
 const getAllPaymentsByUser = async (userId) => {  
     try {
         dispatch({type: "LOADING"});
-        const result = await API.get(`payments/user/${userId}`);
+        const result = await API().get(`payments/user/${userId}`);
         dispatch({
             type: "GET_PAYMENTS",
             payload: result.data
@@ -38,7 +38,7 @@ const getAllPaymentsByUser = async (userId) => {
 const deletePayment = async (paymentId) => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.delete(`payments/${paymentId}`);
+        const result = await API().delete(`payments/${paymentId}`);
         dispatch({
             type: "DELETE_PAYMENT",
             payload: result.data

@@ -9,7 +9,7 @@ const createComment = async (dataComment, user) => {
         const formData = new FormData();
         formData.append("user", user);
         formData.append("body", dataComment.body);
-        const result = await API.post("comments", formData);
+        const result = await API().post("comments", formData);
         dispatch({
             type: "CREATE_COMMENT",
             payload: result.data
@@ -23,7 +23,7 @@ const createComment = async (dataComment, user) => {
 const getAllComments = async () => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.get("comments");
+        const result = await API().get("comments");
         const sortedComments = result.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         dispatch({
             type: "GET_COMMENTS",
@@ -37,7 +37,7 @@ const getAllComments = async () => {
 const getCommentsByStation = async (stationId) => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.get(`/comments/station/${stationId}`);
+        const result = await API().get(`/comments/station/${stationId}`);
         const sortedComments = result.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         dispatch({
             type: "STATION_COMMENTS",
@@ -64,7 +64,7 @@ const getCommentsByUser = async (comments, user) => {
 const deleteComment = async (commentId) => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.delete(`comments/${commentId}`);
+        const result = await API().delete(`comments/${commentId}`);
         dispatch({
             type: "DELETE_POST",
             payload: result.data

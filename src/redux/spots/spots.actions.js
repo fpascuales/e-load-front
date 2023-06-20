@@ -12,7 +12,7 @@ const createSpot = async (dataSpot) => {
         formData.append("rate", dataSpot.rate);
         formData.append("state", dataSpot.state);
         formData.append("station", dataSpot.station);
-        const result = await API.post("spots", formData);
+        const result = await API().post("spots", formData);
         dispatch({
             type: "CREATE_SPOT",
             payload: result.data
@@ -25,7 +25,7 @@ const createSpot = async (dataSpot) => {
 const getAllSpots = async () => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.get("spots");
+        const result = await API().get("spots");
         dispatch({
             type: "GET_SPOTS",
             payload: result.data
@@ -38,7 +38,7 @@ const getAllSpots = async () => {
 const getSpotsByStation = async (stationId) => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.get(`spots/station/${stationId}`);
+        const result = await API().get(`spots/station/${stationId}`);
         dispatch({
             type: "STATION_SPOTS",
             payload: result.data
@@ -51,7 +51,7 @@ const getSpotsByStation = async (stationId) => {
 const getSpotsByUser = async (userId) => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.get(`spots/user/${userId}`);
+        const result = await API().get(`spots/user/${userId}`);
         dispatch({
             type: "USER_SPOTS",
             payload: result.data
@@ -67,7 +67,7 @@ const updateSpot = async (spotId, spotToUpdate) => {
         const formData = new FormData();
         formData.append("rate", spotToUpdate.rate);
         formData.append("state", spotToUpdate.state);
-        const result = await API.put(`spots/${spotId}`, formData);
+        const result = await API().put(`spots/${spotId}`, formData);
         dispatch({
             type: "UPDATE_SPOT",
             payload: result.data
@@ -79,7 +79,7 @@ const updateSpot = async (spotId, spotToUpdate) => {
 }
 const updateSpotState = async (spotId, newState) => {
     try {
-        const result = await API.patch(`spots/${spotId}`, {state: newState});
+        const result = await API().patch(`spots/${spotId}`, {state: newState});
         if(newState === 'Ocupado'){
             dispatch({
                 type: "SELECT_SPOT_TO_LOAD",
@@ -99,7 +99,7 @@ const updateSpotState = async (spotId, newState) => {
 }
 const spotLoading = async (spotId, loadValue) => {
     try {
-        const result = await API.patch(`spots/${spotId}`, {load: loadValue});
+        const result = await API().patch(`spots/${spotId}`, {load: loadValue});
         dispatch({
             type: "SELECT_SPOT_TO_LOAD",
             payload: result.data
@@ -120,7 +120,7 @@ const loadingSpot = () => {
 const deleteSpot = async (spotId) => {
     try {
         // dispatch({type: "LOADING"});
-        const result = await API.delete(`spots/${spotId}`);
+        const result = await API().delete(`spots/${spotId}`);
         dispatch({
             type: "DELETE_SPOT",
             payload: result.data

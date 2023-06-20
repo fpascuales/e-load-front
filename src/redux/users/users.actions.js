@@ -6,7 +6,7 @@ const { dispatch } = store;
 const login = async (dataLogin) => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.post("users/login", dataLogin);
+        const result = await API().post("users/login", dataLogin);
         dispatch({
             type: "LOGIN",
             payload: {
@@ -32,7 +32,7 @@ const createUser = async (dataRegister, navigate) => {
             formData.append("image", dataRegister.image[0]);
         }
         formData.append("password", dataRegister.password);        
-        const result = await APIIMAGES.post("users", formData);
+        const result = await APIIMAGES().post("users", formData);
         dispatch({
             type: "CREATE_USER",
             payload: result.data
@@ -51,7 +51,7 @@ const createUser = async (dataRegister, navigate) => {
 const getAllUsers = async () => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.get("users");
+        const result = await API().get("users");
         dispatch({
             type: "GET_USERS",
             payload: result.data
@@ -64,7 +64,7 @@ const getAllUsers = async () => {
 const getUserById = async (userId) => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.get(`users/${userId}`);
+        const result = await API().get(`users/${userId}`);
         dispatch({
             type: "SELECT_USER",
             payload: result.data
@@ -87,7 +87,7 @@ const updateUser = async (userId, userToUpdate) => {
         if(userToUpdate.password){
             formData.append("password", userToUpdate.password);  
         }              
-        const result = await APIIMAGES.put(`users/${userId}`, formData);
+        const result = await APIIMAGES().put(`users/${userId}`, formData);
         dispatch({
             type: "UPDATE_USER",
             payload: result.data
@@ -100,7 +100,7 @@ const updateUser = async (userId, userToUpdate) => {
 const updateUserSpots = async (userId, spotId, stationId) => {
     try {
         const date = new Date().toLocaleDateString();
-        const result = await API.patch(`users/${userId}`, {$push: {spots: {date: date, spot:spotId, station: stationId}}});
+        const result = await API().patch(`users/${userId}`, {$push: {spots: {date: date, spot:spotId, station: stationId}}});
         dispatch({
             type: "UPDATE_USER",
             payload: result.data
@@ -112,7 +112,7 @@ const updateUserSpots = async (userId, spotId, stationId) => {
 }
 const updateUserPoints = async (userId, loyaltyPoints) => {
     try {
-        const result = await API.patch(`users/${userId}`, {points: loyaltyPoints});
+        const result = await API().patch(`users/${userId}`, {points: loyaltyPoints});
         dispatch({
             type: "UPDATE_USER",
             payload: result.data
@@ -125,7 +125,7 @@ const updateUserPoints = async (userId, loyaltyPoints) => {
 const deleteUser = async (userId) => {
     try {
         dispatch({type: "LOADING"});
-        const result = await API.delete(`users/${userId}`);
+        const result = await API().delete(`users/${userId}`);
         dispatch({
             type: "DELETE_USER",
             payload: result.data
@@ -137,7 +137,7 @@ const deleteUser = async (userId) => {
 }
 const checkSession = async () => {
     try {
-      const result = await API.get("users/check");
+      const result = await API().get("users/check");
       dispatch({
         type: "CHECK_SESSION",
         payload: {
