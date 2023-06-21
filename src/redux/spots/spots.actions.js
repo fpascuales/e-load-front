@@ -99,7 +99,7 @@ const updateSpotState = async (spotId, newState) => {
 }
 const spotLoading = async (spotId, loadValue) => {
     try {
-        const result = await API().patch(`spots/${spotId}`, {load: loadValue});
+        const result = await API().patch(`spots/${spotId}/load`, {load: loadValue});
         dispatch({
             type: "SELECT_SPOT_TO_LOAD",
             payload: result.data
@@ -109,14 +109,14 @@ const spotLoading = async (spotId, loadValue) => {
         dispatch({ type: "ERROR", payload: errorMessage });
     }
 }
-const loadingSpot = () => {
-    let value = 0;
-    const interval = setInterval(() => {
-        value = value + 5;
-        console.log(value);
-    }, 1000);
-    return () => { clearInterval(interval)};
-}
+// const loadingSpot = () => {
+//     let value = 0;
+//     const interval = setInterval(() => {
+//         value = value + 5;
+//         console.log(value);
+//     }, 1000);
+//     return () => { clearInterval(interval)};
+// }
 const deleteSpot = async (spotId) => {
     try {
         // dispatch({type: "LOADING"});
@@ -143,7 +143,7 @@ export {
     updateSpot,
     updateSpotState,
     spotLoading,
-    loadingSpot,
+    // loadingSpot,
     deleteSpot,
     deleteAllSpotsFromStation
 }

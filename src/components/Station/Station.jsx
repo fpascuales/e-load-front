@@ -13,12 +13,14 @@ import {
   Flex,
   Divider,
   Tooltip,
+  Text,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import { AccessTime, Chat, FavoriteBorder, Power } from "@mui/icons-material";
+import { AccessTime, Chat, FavoriteBorder, Place, Power } from "@mui/icons-material";
 import { getCommentsByStation } from "../../redux/comments/comments.actions";
 import StationSpots from "../StationSpots/StationSpots";
 import StationComments from "../StationComments/StationComments";
+import { Link } from "react-router-dom";
 const Station = ({ isOpen, onClose }) => {
     const { stationSelected } = useSelector((state) => state.stations);    
     const [showSpots, setShowSpots] = useState(true);
@@ -66,6 +68,15 @@ const Station = ({ isOpen, onClose }) => {
             </Flex>
           </Flex>
           <Divider my={3}/>
+          <Link
+              to={`https://maps.google.com/?q=${stationSelected.coordinates.lat},${stationSelected.coordinates.lng}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+            <Flex mb={3}>
+              <Place/><Text>Ver en Google Maps</Text>
+            </Flex>
+          </Link>
           <Flex direction="column" gap={4}>
             {showSpots && <StationSpots/>}
             {showComments && <StationComments/>}
